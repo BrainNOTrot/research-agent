@@ -1,16 +1,30 @@
-# Go
-agent/research-agent
-agent/*.exe
+# Go binaries
+research-agent
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
 
-# Memory files
-agent/memory.json
+# Go build output
+/bin/
+/dist/
 
-# Node
+# React
 dashboard/node_modules/
+dashboard/dist/
 
-# Environment
-.env
+# Logs
+*.log
 
 # OS files
 .DS_Store
 Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Local runtime data
+memory.json
+

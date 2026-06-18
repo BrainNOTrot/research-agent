@@ -2,32 +2,39 @@ package main
 
 import (
 	"fmt"
-	"os"
-	"os/signal"
-	"syscall"
+	"net/http"
 )
 
 func main() {
 
-	agent := NewAgent(
-		"artificial intelligence breakthroughs",
+	http.HandleFunc(
+		"/research/start",
+		StartResearchHandler,
 	)
 
-	agent.Run()
-
-	fmt.Println("Agent running...")
-
-	stop := make(chan os.Signal, 1)
-
-	signal.Notify(
-		stop,
-		os.Interrupt,
-		syscall.SIGTERM,
+	http.HandleFunc(
+		"/research/status",
+		StatusHandler,
 	)
 
-	<-stop
+	fmt.Println(
+		"Server running on :8080",
+	)
 
-	agent.Stop()
+	http.HandleFunc(
+		"/research/stop",
+		StopResearchHandler,
+	)
 
-	fmt.Println("Shutdown complete")
+	fs := http.FileServer(
+		http.Dir("dashboard/dist"),
+	)
+
+	http.Handle("/", fs)
+
+	http.ListenAndServe(
+		":8080",
+		nil,
+	)
+
 }
