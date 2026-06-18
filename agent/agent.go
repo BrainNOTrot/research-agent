@@ -6,11 +6,12 @@ import (
 )
 
 type Agent struct {
-	rootTopic string
 	current   string
+	rootTopic string
 	memory    *Memory
-	running   bool
-	stopChan  chan struct{}
+
+	running  bool
+	stopChan chan struct{}
 }
 
 func NewAgent(topic string) *Agent {
@@ -86,7 +87,11 @@ func (a *Agent) Run() {
 					fmt.Println("Failed to save memory:", err)
 				}
 
-				next := PickNextTopic(collected, a.memory)
+				next := PickNextTopic(
+					collected,
+					a.rootTopic,
+					a.memory,
+				)
 
 				if next != "" {
 					a.current = next
