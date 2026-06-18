@@ -1,0 +1,16 @@
+# Go
+agent/research-agent
+agent/*.exe
+
+# Memory files
+agent/memory.json
+
+# Node
+dashboard/node_modules/
+
+# Environment
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
